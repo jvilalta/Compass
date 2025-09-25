@@ -23,11 +23,19 @@ import com.bobek.compass.R
 
 enum class CardinalDirection(@StringRes val labelResourceId: Int) {
     NORTH(R.string.cardinal_direction_north),
+    EASTNORTHEAST(R.string.cardinal_direction_eastnortheast),
     NORTHEAST(R.string.cardinal_direction_northeast),
+    NORTHNORTHEAST(R.string.cardinal_direction_northnortheast),
     EAST(R.string.cardinal_direction_east),
+    EASTSOUTHEAST(R.string.cardinal_direction_eastsoutheast),
     SOUTHEAST(R.string.cardinal_direction_southeast),
+    SOUTHSOUTHEAST(R.string.cardinal_direction_southsoutheast),
     SOUTH(R.string.cardinal_direction_south),
+    SOUTHSOUTHWEST(R.string.cardinal_direction_southsouthwest),
     SOUTHWEST(R.string.cardinal_direction_southwest),
+    WESTSOUTHWEST(R.string.cardinal_direction_westsouthwest),
     WEST(R.string.cardinal_direction_west),
-    NORTHWEST(R.string.cardinal_direction_northwest)
+    NORTHWEST(R.string.cardinal_direction_northwest),
+    NORTHNORTHWEST(R.string.cardinal_direction_northnorthwest),
+    WESTNORTHWEST(R.string.cardinal_direction_westnorthwest)
 }
