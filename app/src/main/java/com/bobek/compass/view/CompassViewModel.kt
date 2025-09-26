@@ -28,6 +28,8 @@ import com.bobek.compass.model.SensorAccuracy
 class CompassViewModel : ViewModel() {
 
     val azimuth = MutableLiveData<Azimuth>()
+    val magneticBearing = MutableLiveData<Float>()
+    val magneticVariation = MutableLiveData<Float>()
     val sensorAccuracy = MutableLiveData(SensorAccuracy.NO_CONTACT)
     val trueNorth = MutableLiveData(false)
     val hapticFeedback = MutableLiveData(true)

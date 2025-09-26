@@ -54,6 +54,7 @@ class CompassView(context: Context, attributes: AttributeSet) : ConstraintLayout
         visibility = INVISIBLE
         updateStatusDegreesTextSize(width * getFloat(R.dimen.status_degrees_text_size_factor))
         updateStatusCardinalDirectionTextSize(width * getFloat(R.dimen.status_cardinal_direction_text_size_factor))
+        updateStatusMagneticInfoTextSize(width * getFloat(R.dimen.status_cardinal_direction_text_size_factor) * 0.8f)
         updateCardinalDirectionTextSize(width * getFloat(R.dimen.cardinal_direction_text_size_factor))
         updateDegreeTextSize(width * getFloat(R.dimen.degree_text_size_factor))
     }
@@ -64,6 +65,11 @@ class CompassView(context: Context, attributes: AttributeSet) : ConstraintLayout
 
     private fun updateStatusCardinalDirectionTextSize(textSize: Float) {
         binding.statusCardinalDirectionText.setTextSize(COMPLEX_UNIT_PX, textSize)
+    }
+
+    private fun updateStatusMagneticInfoTextSize(textSize: Float) {
+        binding.statusMagneticBearingText.setTextSize(COMPLEX_UNIT_PX, textSize)
+        binding.statusMagneticVariationText.setTextSize(COMPLEX_UNIT_PX, textSize)
     }
 
     private fun updateCardinalDirectionTextSize(textSize: Float) {
@@ -89,10 +95,15 @@ class CompassView(context: Context, attributes: AttributeSet) : ConstraintLayout
     }
 
     fun setAzimuth(value: Float) {
+        setAzimuth(value, null, null, false)
+    }
+
+    fun setAzimuth(value: Float, magneticBearing: Float?, magneticVariation: Float?, showMagneticInfo: Boolean) {
         val azimuth = Azimuth(value)
 
         updateStatusDegreesText(azimuth)
         updateStatusDirectionText(azimuth)
+        updateMagneticInfo(magneticBearing, magneticVariation, showMagneticInfo)
 
         val rotation = azimuth.degrees.unaryMinus()
         rotateCompassRoseImage(rotation)
@@ -108,6 +119,24 @@ class CompassView(context: Context, attributes: AttributeSet) : ConstraintLayout
 
     private fun updateStatusDirectionText(azimuth: Azimuth) {
         binding.statusCardinalDirectionText.text = context.getString(azimuth.cardinalDirection.labelResourceId)
+    }
+
+    private fun updateMagneticInfo(magneticBearing: Float?, magneticVariation: Float?, showMagneticInfo: Boolean) {
+        if (showMagneticInfo && magneticBearing != null && magneticVariation != null) {
+            val magneticBearingAzimuth = Azimuth(magneticBearing)
+            binding.statusMagneticBearingText.text = context.getString(R.string.magnetic_bearing, magneticBearingAzimuth.roundedDegrees)
+
+            // Format magnetic variation in standard E/W format
+            val variationAbs = kotlin.math.abs(magneticVariation)
+            val direction = if (magneticVariation >= 0) "E" else "W"
+            binding.statusMagneticVariationText.text = context.getString(R.string.magnetic_variation, variationAbs, direction)
+
+            binding.statusMagneticBearingText.visibility = VISIBLE
+            binding.statusMagneticVariationText.visibility = VISIBLE
+        } else {
+            binding.statusMagneticBearingText.visibility = GONE
+            binding.statusMagneticVariationText.visibility = GONE
+        }
     }
 
     private fun rotateCompassRoseImage(rotation: Float) {

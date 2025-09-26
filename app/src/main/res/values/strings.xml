@@ -78,4 +78,6 @@
     <string name="degree_270_text" translatable="false">270</string>
     <string name="degree_300_text" translatable="false">300</string>
     <string name="degree_330_text" translatable="false">330</string>
+    <string name="magnetic_bearing">Magnetic bearing: %1$d°</string>
+    <string name="magnetic_variation">Variation: %1$.1f°%2$s</string>
 </resources>

@@ -22,6 +22,9 @@
 
     <declare-styleable name="CompassView">
         <attr name="azimuth" format="float" />
+        <attr name="magneticBearing" format="float" />
+        <attr name="magneticVariation" format="float" />
+        <attr name="trueNorth" format="boolean" />
     </declare-styleable>
 
 </resources>

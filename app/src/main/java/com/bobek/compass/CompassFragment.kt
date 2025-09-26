@@ -456,8 +456,17 @@ class CompassFragment : Fragment() {
             if (compassViewModel.trueNorth.value == true) {
                 val magneticDeclination = getMagneticDeclination()
                 val trueAzimuth = magneticAzimuth.plus(magneticDeclination)
+                
+                // Set magnetic bearing and variation for display
+                compassViewModel.magneticBearing.value = magneticAzimuth.degrees
+                compassViewModel.magneticVariation.value = magneticDeclination
+                
                 setAzimuth(trueAzimuth)
             } else {
+                // Clear magnetic info when not using true north
+                compassViewModel.magneticBearing.value = null
+                compassViewModel.magneticVariation.value = null
+                
                 setAzimuth(magneticAzimuth)
             }
         }
